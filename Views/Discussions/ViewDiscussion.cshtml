@@ -1,0 +1,43 @@
+﻿@model WebForum.Models.Comment;
+@{
+
+    Discussion ActiveDiscussion = Global.GlobalDiscussion[ViewBag.idDiscussion];
+
+
+}
+<p>Обсуждение от @Global.GlobalUsers[ActiveDiscussion.UserId].Login </p> 
+<h2>@ActiveDiscussion.Topic</h2>
+<p>@ActiveDiscussion.Text</p>
+<h4>Коментарии:</h4>
+@if(Global.ActiveLocalUser == null){
+    <p>Чтобы создать коментарий зарегестрируйте или войдите в акаунт</p>
+}
+else {
+    <form asp-action="CreateComment" asp-controller="Comment" asp-route-idDiscussion="@ActiveDiscussion.Id" method="post">
+    <div>
+        <p>
+            <label asp-for="Text">Создать коментарий</label><br />
+            <textarea asp-for="Text" rows="3" cols="20"></textarea>
+            <span asp-validation-for="Text" />
+        </p>
+        <p>
+            <input type="submit" value="Создать" />
+        </p>
+    </div>
+
+</form>
+
+}
+@if(ActiveDiscussion.Commenter != null){
+    
+    @foreach(var comentarie in ActiveDiscussion.Commenter){
+        <div class="div-comment">
+            <h6 style="margin:0px">@comentarie.User.Login</h6>
+            <p style="margin-top:0px">@comentarie.Text</p>
+        </div>
+    }
+}
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.10/jquery.validate.unobtrusive.min.js"></script>

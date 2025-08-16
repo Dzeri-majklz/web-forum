@@ -1,0 +1,47 @@
+﻿@*
+
+*@
+@{
+    string str = "...";
+}
+
+<button><a asp-action="CreateDiscussions" asp-controller="Discussions">Создать новое обсуждение</a></button>
+
+@foreach(var dis in Global.GlobalDiscussion)
+{ 
+
+
+    <div class="div-Discussion">
+        <a asp-action="ViewDiscussion" asp-controller="Discussions" asp-route-idDiscussion="@dis.Id">
+        <div class="Topic-Discussion">
+             <p class="p-Discussion">
+                 @dis.Topic
+             </p>
+         </div>
+         <div>
+            <p class="p-Discussion">
+                 @if(dis.Text.Length > 250)
+                 {
+
+                    @dis.Text.Substring(0,250);
+                    @str
+                    
+                    
+                 }
+                 else{
+                    @dis.Text;
+                   
+
+
+                 }
+                 
+ 
+             </p>
+         </div>
+        </a>
+     </div>
+
+}
+
+
+

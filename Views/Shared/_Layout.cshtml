@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Forum</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebForum.styles.css" asp-append-version="true" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <header>
+       <ul class="ul-header">
+            <li><h3><a asp-action="Index" asp-controller="Home">Главная</a></h3></li>
+            <li><h3><a asp-action="Index" asp-controller="Discussions">Обсуждения</a></h3></li>
+            @if(Global.ActiveLocalUser == null){
+                <li class="AuthenticationUser-li"><h3><a asp-action="CreateUser" asp-controller="User">Зарегестрироваться</a></h3></li>
+                <li><h3><a asp-action="AuthenticationUser" asp-controller="User">Войти</a></h3></li>
+            }
+            else{
+                <li><h3 class="ExitUser-li"><a asp-action="Exit" asp-controller="User">Выйти из акаунта</a></h3></li>
+            }
+       </ul>
+    </header>
+    
+    <main>
+        @RenderBody()
+    </main>
+    
+
+    <footer>
+
+        <p>Ваши данные защищенны</p>
+        
+    </footer>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
